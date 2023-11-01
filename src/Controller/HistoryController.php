@@ -8,32 +8,32 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\History;
 use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/api', name: 'api_')]
 class HistoryController extends AbstractController
 {
     #[Route('/history', name: 'show_history')]
-    public function show(ManagerRegistry $doctrine): JsonResponse
+    public function show(ManagerRegistry $doctrine, PaginatorInterface $paginator, Request $request)
     {
-        $history = $doctrine
-            ->getRepository(History::class)
-            ->findAll();
+        // Get the sorting parameters from the request
+        $sortField = $request->query->get('sort', 'id'); // Default sorting by 'id'
+        $sortDirection = $request->query->get('direction', 'asc'); // Default sorting direction
 
-        $data = [];
+        // Query the products from the repository
+        $query = $doctrine->getRepository(History::class)->findAll($sortField, $sortDirection);
 
-        foreach ($history as $item) {
-            $data[] = [
-                'id'         => $item->getId(),
-                'first_in'   => $item->getFirstIn(),
-                'second_in'  => $item->getSecondIn(),
-                'first_out'  => $item->getFirstOut(),
-                'second_out' => $item->getSecondOut(),
-                'created_at' => $item->getCreatedAt(),
-                'updated_at' => $item->getUpdatedAt(),
-            ];
-        }
+        // Paginate the results
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1), // Page number from the request
+            2 // Items per page
+        );
 
-        return $this->json($data);
+        return $this->render('history.html.twig', [
+            'pagination' => $pagination,
+        ]);
+
     }
 
     #[Route('/exchange/values', name: 'exchange_values', methods:['post'])]

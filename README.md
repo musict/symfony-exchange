@@ -7,4 +7,5 @@
 Test api:
 
 Get all records - localhost/api/history
+
 Exchange values - localhost/api/exchange/values

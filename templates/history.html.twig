@@ -1,0 +1,58 @@
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+</style>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>{{ knp_pagination_sortable(pagination, 'ID', 'id') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'First IN', 'first_in') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Second IN', 'second_in') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'First OUT', 'first_out') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Second OUT', 'second_out') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Created at', 'created_at') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Updated at', 'updated_at') }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for item in pagination %}
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.firstIn }}</td>
+      <td>{{ item.secondIn }}</td>
+      <td>{{ item.firstOut }}</td>
+      <td>{{ item.secondOut }}</td>
+      <td>{{ item.createdAt|date('Y-m-d H:i:s') }}</td>
+      <td>{{ item.updatedAt|date('Y-m-d H:i:s') }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+  {{ knp_pagination_render(pagination) }}
+</div>
+
