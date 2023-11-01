@@ -6,3 +6,4 @@
 /var/
 /vendor/
 /.docker/.env.nginx.local
+/.idea

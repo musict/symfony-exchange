@@ -10,6 +10,8 @@
     "doctrine/doctrine-bundle": "^2.8",
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.14",
+    "friendsofsymfony/rest-bundle": "^3.6",
+    "jms/serializer-bundle": "^5.3",
     "symfony/console": "6.2.*",
     "symfony/dotenv": "6.2.*",
     "symfony/flex": "^2",
@@ -66,7 +68,7 @@
   },
   "extra": {
     "symfony": {
-      "allow-contrib": false,
+      "allow-contrib": true,
       "require": "6.2.*"
     }
   }
