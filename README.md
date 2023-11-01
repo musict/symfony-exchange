@@ -3,3 +3,8 @@
 3. Start docker container using `.docker/docker-compose.yml`.
 4. Inside the PHP container run composer install.
 5. Make migrations
+
+Test api:
+
+Get all records - localhost/api/history
+Exchange values - localhost/api/exchange/values
